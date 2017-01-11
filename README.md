@@ -2,9 +2,12 @@
 
 Clone stash projects easily
 
+## Requirement
+
+```
+pip install stashy
+```
 ## Usage
-
-
 ```
 git clone https://github.com/previousdeveloper/stash-deep-clone.git
 
