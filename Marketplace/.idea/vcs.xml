@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/admin-portal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/admin-portal-api-gateway" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/calendar-service-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/calendar-service-api-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/charon-api-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/claims-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/claims-api-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/fulfillment-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/fulfillment-api-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/fulfillment-marketplace-adapter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/infrastructure-setup" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/marketplace-listing-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/marketplace-listing-api-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/marketplace.testautomation" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/marketplacegatewayapi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/notification-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/oms-api-acceptance-tests" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/oms-api-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/oms-integration-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/order-management" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-api-acceptance-tests" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-api-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-api-gateway" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-portal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-portal-api-gateway" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-portal-api-gateway-acceptance-tests" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-product-management" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-product-management-api-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/supplier-product-managment-acceptance-tests" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/trendyol-spring-boot-client-starter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/trendyol-spring-boot-starter-bom" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/trendyol-spring-boot-starter-common" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/trendyol-spring-boot-starter-parent" vcs="Git" />
+  </component>
+</project>

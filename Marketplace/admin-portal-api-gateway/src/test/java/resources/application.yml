@@ -1,0 +1,15 @@
+spring:
+   rabbitmq:
+        host: 127.0.0.1
+charon:
+  rabbitmq:
+      host: devrabbit.trendyol.com
+      username: mqadmin
+      password: KtRmTS
+      virtual-host: trendyol
+
+swagger:
+  host:
+    url: foo.com
+    path: fulfillment
+

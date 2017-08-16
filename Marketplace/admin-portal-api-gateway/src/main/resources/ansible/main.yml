@@ -1,0 +1,4 @@
+---
+- include: ./sync.yml
+- include: ./delete.yml
+- include: ./service-up.yml

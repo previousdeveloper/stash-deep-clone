@@ -1,0 +1,79 @@
+spring:
+    application:
+      name: Trendyol Oms Integration API
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:sqlserver://192.168.0.74;databaseName=trendyol.dev
+        dataSourceClassName: com.microsoft.sqlserver.jdbc.SQLServerDataSource
+        username: trendyoluser
+        password: 29trendyol29
+        hikari:
+          pool-status: oms-integration-api-db-pool
+          data-source-properties:
+              cachePrepStmts: true
+              prepStmtCacheSize: 250
+              prepStmtCacheSqlLimit: 2048
+              useServerPrepStmts: true
+    jpa:
+      database-platform: org.hibernate.dialect.SQLServer2008Dialect
+      database: SQL_SERVER
+      show-sql: true
+      open-in-view: false
+      hibernate:
+          naming:
+            physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      properties:
+        hibernate.cache.use_query_cache: false
+        hibernate.generate_statistics: false
+        hibernate.hbm2ddl.auto: none
+    rabbitmq:
+        host: 127.0.0.1
+
+
+swagger:
+  host:
+    url: localhost:8021
+    path:
+
+charon:
+  rabbitmq:
+      host: devrabbit.trendyol.com
+      username: mqadmin
+      password: KtRmTS
+      virtual-host: trendyol
+
+new:
+  admin:
+    marketplace:
+      gateway:
+        url: http://devmarketplacegatewayapi.trendyol.com/
+server:
+  port: 8021
+
+---
+spring:
+  profiles: test
+  rabbitmq:
+    host: tt-ddoc-lmplc01.trendyol.com
+
+charon:
+  rabbitmq:
+      host: devrabbit.trendyol.com
+      username: mqadmin
+      password: KtRmTS
+      virtual-host: trendyol
+
+swagger:
+  host:
+    url: tt-ddoc-lmplc01.trendyol.com:8021
+    path:
+---
+spring:
+  profiles: sandbox
+  rabbitmq:
+      host: rabbitmq-oms-api
+
+swagger:
+  host:
+    url: mp-sandbox.trendyol.com
+    path: /oms-integration-api

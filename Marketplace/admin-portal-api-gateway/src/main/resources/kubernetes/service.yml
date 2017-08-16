@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oms-integration-api-service
+spec:
+  type: NodePort
+  ports:
+  - port: 8021
+    targetPort: 8021
+  selector:
+    app: oms-integration-api-service

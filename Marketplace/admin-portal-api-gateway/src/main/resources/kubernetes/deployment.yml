@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: oms-integration-api-deployment
+spec:
+  replicas: 2
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: oms-integration-api-service
+    spec:
+      containers:
+      - name: oms-integration-api-service
+        image: nexus.trendyol.com:8083/oms-integration-api:develop
+        imagePullPolicy: Always
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: sandbox
+        ports:
+        - name: oms-integ-port
+          containerPort: 8021
+        livenessProbe:
+          successThreshold: 1
+          failureThreshold: 3
+          httpGet:
+            path: /swagger-ui.html
+            port: oms-integ-port
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 30
+      imagePullSecrets:
+        - name: spmregistrykey
+      restartPolicy: Always

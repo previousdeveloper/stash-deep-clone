@@ -1,0 +1,15 @@
+---
+- hosts: kubernetes-test
+  become: true
+  tasks:
+    - name: Up Deployment
+      become: true
+      shell: kubectl create -f /opt/oms-integration-api/deployment.yml
+
+    - name: Up Service
+      become: true
+      shell: kubectl create -f /opt/oms-integration-api/service.yml
+
+    - name: Up Ingress
+      become: true
+      shell: kubectl create -f /opt/oms-integration-api/ingress.yml

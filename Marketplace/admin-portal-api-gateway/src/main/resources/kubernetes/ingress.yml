@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+  name: oms-integration-api-ingress
+spec:
+  rules:
+  - host: mp-sandbox.trendyol.com
+    http:
+      paths:
+      - backend:
+          serviceName: oms-integration-api-service
+          servicePort: 8021
+        path: /oms-integration-api

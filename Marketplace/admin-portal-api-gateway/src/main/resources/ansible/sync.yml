@@ -1,0 +1,10 @@
+---
+- hosts: kubernetes-test
+  become: true
+  tasks:
+    - file:
+        path: /opt/oms-integration-api
+        state: directory
+    - synchronize:
+        src: /var/lib/jenkins/workspace/oms-integration-api-sandbox-deployment/src/main/resources/kubernetes/
+        dest: /opt/oms-integration-api

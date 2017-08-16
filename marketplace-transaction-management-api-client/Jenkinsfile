@@ -1,0 +1,93 @@
+#!/usr/bin/env groovy
+
+node {
+
+    def pom
+
+    stage('Checkout Project') {
+       checkout scm
+    }
+
+    stage('Git Checkout develop') {
+         sh "git checkout develop"
+
+         withCredentials([[$class          : 'UsernamePasswordMultiBinding',
+                           credentialsId   : 'f79d3a27-198d-4c33-8300-11bc95345847',
+                           usernameVariable: 'GIT_USERNAME',
+                           passwordVariable: 'GIT_PASSWORD']]) {
+              sh "git pull http://${GIT_USERNAME}:${GIT_PASSWORD}@stash.trendyol.com:7990/scm/mar/marketplace-transaction-management-api-client.git "
+         }
+    }
+
+    stage('Clean and Verify') {
+        sh "./mvnw clean install"
+    }
+
+    stage('Increment version') {
+        sh "./mvnw -X build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit"
+        pom = readMavenPom file: 'pom.xml'
+    }
+
+    stage('Clean and Install') {
+        sh "./mvnw clean install"
+        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+    }
+
+    stage('git tag and branch') {
+       sh 'git config --global user.email "marketplace@trendyol.com"'
+       sh 'git config --global user.name "MarketPlace Jenkins"'
+       sh 'git add .'
+       sh "git commit -m 'Auto commit by MarketPlace Jenkins v${pom.version}'"
+
+      withCredentials([[$class          : 'UsernamePasswordMultiBinding',
+                        credentialsId   : 'f79d3a27-198d-4c33-8300-11bc95345847',
+                        usernameVariable: 'GIT_USERNAME',
+                        passwordVariable: 'GIT_PASSWORD']]) {
+           sh "git push -u http://${GIT_USERNAME}:${GIT_PASSWORD}@stash.trendyol.com:7990/scm/mar/marketplace-transaction-management-api-client develop --force"
+      }
+    }
+
+
+    stage('Git Checkout Master and Merge') {
+     sh "git checkout master"
+     withCredentials([[$class          : 'UsernamePasswordMultiBinding',
+                       credentialsId   : 'f79d3a27-198d-4c33-8300-11bc95345847',
+                       usernameVariable: 'GIT_USERNAME',
+                       passwordVariable: 'GIT_PASSWORD']]) {
+          sh "git pull http://${GIT_USERNAME}:${GIT_PASSWORD}@stash.trendyol.com:7990/scm/mar/marketplace-transaction-management-api-client.git "
+     }
+
+      sh "git merge develop"
+      withCredentials([[$class          : 'UsernamePasswordMultiBinding',
+                        credentialsId   : 'f79d3a27-198d-4c33-8300-11bc95345847',
+                        usernameVariable: 'GIT_USERNAME',
+                        passwordVariable: 'GIT_PASSWORD']]) {
+           sh "git push -u http://${GIT_USERNAME}:${GIT_PASSWORD}@stash.trendyol.com:7990/scm/mar/marketplace-transaction-management-api-client.git master --force"
+      }
+
+       sh """
+            git tag -f -a v${pom.version} -m "Supplier api client version ${pom.version}"
+        """
+
+       withCredentials([[$class          : 'UsernamePasswordMultiBinding',
+                         credentialsId   : 'f79d3a27-198d-4c33-8300-11bc95345847',
+                         usernameVariable: 'GIT_USERNAME',
+                         passwordVariable: 'GIT_PASSWORD']]) {
+            sh "git push -u http://${GIT_USERNAME}:${GIT_PASSWORD}@stash.trendyol.com:7990/scm/mar/marketplace-transaction-management-api-client.git --tags --force"
+       }
+
+    }
+
+    stage('Publish Nexus Jar') {
+        sh " ./mvnw -s settings.xml clean deploy"
+    }
+
+    stage('Publish Sonar Report') {
+        withSonarQubeEnv('Sonar Server') {
+            sh './mvnw sonar:sonar'
+        }
+    }
+
+}
+
+

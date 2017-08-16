@@ -1,0 +1,9 @@
+- hosts: marketplace-dev
+  become: true
+  tasks:
+      - name: stop oms-integration-api application
+        shell: docker rm -f -v oms-integration-api || true
+      - name: remove old oms-integration-api image
+        shell: docker rmi -f nexus.trendyol.com:8083/oms-integration-api:develop || true
+      - name: start oms-integration-api application
+        command: docker run -p 8021:8021 -d -e SPRING_PROFILES_ACTIVE=test --name oms-integration-api nexus.trendyol.com:8083/oms-integration-api:develop

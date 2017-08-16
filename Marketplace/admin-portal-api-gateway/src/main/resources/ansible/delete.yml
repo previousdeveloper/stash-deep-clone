@@ -1,0 +1,28 @@
+---
+- hosts: kubernetes-test
+  become: true
+  tasks:
+    - name: Delete Deployment
+      become: true
+      shell: kubectl delete -f /opt/oms-integration-api/deployment.yml
+      ignore_errors: yes
+
+    - name: Delete Service
+      become: true
+      shell: kubectl delete -f /opt/oms-integration-api/service.yml
+      ignore_errors: yes
+
+    - name: Delete Postgresql Deployment
+      become: true
+      shell: kubectl delete -f /opt/oms-integration-api/postgresql-deployment.yml
+      ignore_errors: yes
+
+    - name: Delete Postgresql Service
+      become: true
+      shell: kubectl delete -f /opt/oms-integration-api/postgresql-service.yml
+      ignore_errors: yes
+
+    - name: Delete Ingress
+      become: true
+      shell: kubectl delete -f /opt/oms-integration-api/ingress.yml
+      ignore_errors: yes
